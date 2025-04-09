@@ -74,7 +74,7 @@ class Database:
                 database="library_management",
                 auth_plugin="mysql_native_password"
             )
-            self.cursor = self.conn.cursor()
+            self.cursor = self.conn.cursor(buffered=True)
         except mysql.connector.Error as e:
             print(f"Database error: {e}")
 
@@ -82,7 +82,9 @@ class Database:
         try:
             self.cursor.execute(query, values or ())
             if fetch:
-                return self.cursor.fetchone()
+                result = self.cursor.fetchone()  # Fetch one row
+                self.cursor.fetchall()  # Clear remaining results
+                return result
             if fetch_all:
                 return self.cursor.fetchall()
             self.conn.commit()

@@ -7,7 +7,7 @@ class Admin(User):
 
     def register_librarian(self):
         username = input("Enter new librarian username: ")  
-        if db.fetch_one("SELECT username FROM users WHERE username = %s", (username,)):
+        if db.execute_query("SELECT username FROM users WHERE username = %s", (username,),fetch=True):
             print("User already exists!")
             return  
 
@@ -18,7 +18,7 @@ class Admin(User):
     def register_admin(self):
         """Allow an existing admin to register a new admin."""
         username = input("Enter new admin username: ")  
-        if db.fetch_one("SELECT username FROM users WHERE username = %s", (username,)):
+        if db.execute_query("SELECT username FROM users WHERE username = %s", (username,),fetch=True):
             print("Admin already exists!")
             return  
 

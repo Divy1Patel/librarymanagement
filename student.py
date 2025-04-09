@@ -3,15 +3,18 @@ from db import Database
 db = Database()
 
 class Student:
-    def __init__(self, username):
+    def __init__(self, username, password):
         self.username = username
+        self.password = password  # Store password if needed
+
           # TO borrow the books
     def borrow_book(self, book_id):
         """Allows a student to borrow a book if available."""
         print(f"DEBUG: Attempting to borrow book with ID {book_id}")
         
         # Check if book exists and is available
-        book = db.fetch_one("SELECT available FROM books WHERE book_id = %s", (book_id,))
+        book = db.execute_query("SELECT available FROM books WHERE book_id = %s", (book_id,), fetch=True)
+
         if not book:
             print(" Book does not exist!")
             return
@@ -33,7 +36,8 @@ class Student:
         print(f"DEBUG: Attempting to return book with ID {book_id}")
         
         # Check if the student has borrowed this book
-        record = db.fetch_one("SELECT * FROM borrowed_books WHERE student_username = %s AND book_id = %s", (self.username, book_id))
+        record = db.execute_query("SELECT * FROM borrowed_books WHERE student_username = %s AND book_id = %s", (self.username, book_id), fetch=True)
+
         if not record:
             print(" You have not borrowed this book!")
             return

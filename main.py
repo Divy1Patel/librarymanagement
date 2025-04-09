@@ -20,7 +20,7 @@ def initialize_admin():
 def main():
     initialize_admin()
     
-    print("\n Welcome to the Library Management System 📚")
+    print("\n Welcome to the Library Management System ")
 
     username = input("Enter username: ")
     password = input("Enter password: ")
@@ -56,20 +56,18 @@ def admin_menu(admin):
     """Admin functionality menu."""
     while True:
         print("\n Admin Menu:")
-        print("1 Register Librarian")
-        print("2 Register Another Admin")
-        print("3 View Books")
-        print("4 Logout")
+        print("1 Register Another Admin")
+        print("2 Register Librarian")
+        print("3 Logout")
 
         choice = input("Enter choice: ")
 
         if choice == "1":
-            admin.register_librarian()
-        elif choice == "2":
             admin.register_admin()
+        elif choice == "2":
+            admin.register_librarian()
+        
         elif choice == "3":
-            admin.view_books()
-        elif choice == "4":
             print(" Logging out...")
             break
         else:
