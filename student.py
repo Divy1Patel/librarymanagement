@@ -5,7 +5,7 @@ db = Database()
 class Student:
     def __init__(self, username):
         self.username = username
-
+          # TO borrow the books
     def borrow_book(self, book_id):
         """Allows a student to borrow a book if available."""
         print(f"DEBUG: Attempting to borrow book with ID {book_id}")
